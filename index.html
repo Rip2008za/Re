@@ -1,0 +1,148 @@
+<?php
+// กำหนดชื่อไฟล์ที่ใช้เก็บข้อมูลจำนวนผู้เข้าชม
+$file = "visitor_count.txt";
+
+// เช็คว่ามีไฟล์นี้หรือไม่ ถ้าไม่มีก็สร้างใหม่
+if (!file_exists($file)) {
+    file_put_contents($file, 0);
+}
+
+// อ่านจำนวนผู้เข้าชมจากไฟล์
+$visitor_count = (int)file_get_contents($file);
+
+// เพิ่มจำนวนผู้เข้าชม
+$visitor_count++;
+
+// บันทึกจำนวนผู้เข้าชมกลับไปที่ไฟล์
+file_put_contents($file, $visitor_count);
+?>
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>การแสดงรูปภาพและจำนวนผู้เข้าชม</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9/aliU8dGd2tbFftA+XOFpU7B28xftmHrjl2RGSgT1v8n8R7y4B6vnFAfZXC3o3w" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css" rel="stylesheet">
+    <style>
+        /* ปรับแต่ง UI สำหรับจำนวนผู้เข้าชม */
+        .visitor-count {
+            background-color: #4caf50;
+            color: white;
+            font-size: 1.5rem;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        .visitor-count:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .visitor-count .bi {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+
+        .visitor-count span {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            background-color: #f4f7fa;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        /* กำหนดสไตล์สำหรับ container ของรูปภาพ */
+        .image-container {
+            margin-top: 50px;
+            display: inline-block;
+            width: 300px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        /* การเพิ่มเอฟเฟกต์เมื่อเอาเมาส์ชี้ไปที่รูป */
+        .image-container:hover {
+            transform: translateY(-10px);
+        }
+
+        .image-container img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.05);
+        }
+
+        /* กำหนด caption */
+        .image-caption {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+
+        /* สไตล์สำหรับการจัดเรียงรูปภาพ */
+        .image-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="mb-5 text-primary">กระดอซิ่ง168.com</h1>
+
+        <!-- แสดงจำนวนผู้เข้าชม -->
+        <div class="visitor-count">
+            <i class="bi bi-eye"></i> <!-- ใช้ไอคอนของ Bootstrap -->
+            <span><?php echo "จำนวนผู้เข้าชม: " . $visitor_count; ?></span>
+        </div>
+
+        <div class="image-gallery">
+            <!-- รูปภาพที่ 1 -->
+            <div class="image-container">
+                <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462571343_455261213980762_7748348161565372185_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=108&ccb=1-7&_nc_sid=0024fc&_nc_ohc=4PgMd5pxbYsQ7kNvgE7v7qI&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QFDeMzX-EUFo8FNkFVPBjeX93Pt-ODN6bw5A7sPiXPa7w&oe=677E903F" alt="ตัวอย่างรูปภาพ">
+                <div class="image-caption">ตามหาคนหายโน่168ล็อคดาว</div>
+            </div>
+
+            <!-- รูปภาพที่ 2 -->
+            <div class="image-container">
+                <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462578260_1639619000291318_1374628662558125970_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=103&ccb=1-7&_nc_sid=0024fc&_nc_ohc=jO8bZbBmMvcQ7kNvgH0AUip&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QGtSIFx5kC8Yqpfw-kYWfhboZPsG0HjWR2jgsSTZK17jw&oe=677F59DD" alt="ตัวอย่างรูปภาพ">
+                <div class="image-caption">ตามหาคนหายเปรม777ยูฟ่า</div>
+            </div>
+
+            <!-- รูปภาพที่ 3 -->
+            <div class="image-container">
+                <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/462575539_1534327613894841_561508212858160975_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=101&ccb=1-7&_nc_sid=0024fc&_nc_ohc=za3wOI8fb9QQ7kNvgGcjk26&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD1QEaETweMVOHvvgu-dSlMMY4lwkJzYSs_1dSeyNxB3wShg&oe=677F4482" alt="ตัวอย่างรูปภาพ">
+                <div class="image-caption">ตามหาคนหายหมวดม้าทองตัวลาว</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
